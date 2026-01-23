@@ -1,4 +1,4 @@
-﻿using System.Net;
+using System.Net;
 using System.Net.Mail;
 
 namespace CRBS.Helper
@@ -7,27 +7,35 @@ namespace CRBS.Helper
     {
         public static bool Send(string to, string subject, string msg)
         {
-            MailMessage message = new MailMessage();
-            SmtpClient smtpClient = new SmtpClient();
-            message.From = new MailAddress("manusingh64431@gmail.com");
-            message.To.Add(to);
-            message.Subject = subject;
-            message.IsBodyHtml = true;
-            message.Body = msg;
-
-            smtpClient.Port = 587;
-            smtpClient.Host = "smtp.gmail.com";
-            smtpClient.EnableSsl = true;
-            smtpClient.UseDefaultCredentials = false;
-            smtpClient.Credentials = new NetworkCredential("manusingh64431@gmail.com", "dhkw sjae abaq ypis");
-            smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
             try
             {
+                var fromEmail = Environment.GetEnvironmentVariable("SMTP_EMAIL");
+                var password = Environment.GetEnvironmentVariable("SMTP_PASSWORD");
+                var host = Environment.GetEnvironmentVariable("SMTP_HOST");
+                var port = int.Parse(Environment.GetEnvironmentVariable("SMTP_PORT"));
+
+                MailMessage message = new MailMessage
+                {
+                    From = new MailAddress(fromEmail),
+                    Subject = subject,
+                    Body = msg,
+                    IsBodyHtml = true
+                };
+
+                message.To.Add(to);
+
+                SmtpClient smtpClient = new SmtpClient(host, port)
+                {
+                    Credentials = new NetworkCredential(fromEmail, password),
+                    EnableSsl = true
+                };
+
                 smtpClient.Send(message);
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Console.WriteLine("EMAIL ERROR: " + ex.Message);
                 return false;
             }
         }
