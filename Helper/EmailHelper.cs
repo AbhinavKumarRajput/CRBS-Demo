@@ -1,3 +1,4 @@
+using System;
 using System.Net;
 using System.Net.Mail;
 
@@ -10,9 +11,20 @@ namespace CRBS.Helper
             try
             {
                 var fromEmail = Environment.GetEnvironmentVariable("SMTP_EMAIL");
-                var password = Environment.GetEnvironmentVariable("SMTP_PASSWORD");
-                var host = Environment.GetEnvironmentVariable("SMTP_HOST");
-                var port = int.Parse(Environment.GetEnvironmentVariable("SMTP_PORT"));
+                var password  = Environment.GetEnvironmentVariable("SMTP_PASSWORD");
+                var host      = Environment.GetEnvironmentVariable("SMTP_HOST");
+                var portStr   = Environment.GetEnvironmentVariable("SMTP_PORT");
+
+                if (string.IsNullOrWhiteSpace(fromEmail) ||
+                    string.IsNullOrWhiteSpace(password) ||
+                    string.IsNullOrWhiteSpace(host) ||
+                    string.IsNullOrWhiteSpace(portStr))
+                {
+                    Console.WriteLine("SMTP ENV VARIABLES NOT FOUND");
+                    return false;
+                }
+
+                int port = int.Parse(portStr);
 
                 MailMessage message = new MailMessage
                 {
@@ -24,10 +36,12 @@ namespace CRBS.Helper
 
                 message.To.Add(to);
 
-                SmtpClient smtpClient = new SmtpClient(host, port)
+                using var smtpClient = new SmtpClient(host, port)
                 {
+                    EnableSsl = true,
+                    UseDefaultCredentials = false,
                     Credentials = new NetworkCredential(fromEmail, password),
-                    EnableSsl = true
+                    DeliveryMethod = SmtpDeliveryMethod.Network
                 };
 
                 smtpClient.Send(message);
@@ -35,7 +49,7 @@ namespace CRBS.Helper
             }
             catch (Exception ex)
             {
-                Console.WriteLine("EMAIL ERROR: " + ex.Message);
+                Console.WriteLine("SMTP ERROR: " + ex.Message);
                 return false;
             }
         }
