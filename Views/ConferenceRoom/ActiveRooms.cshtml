@@ -1,0 +1,41 @@
+﻿@model IEnumerable<ConferenceRoom>
+@{
+    ViewData["Title"] = "Conference Rooms";
+}
+
+
+<div class="container">
+
+    <div class="row d-flex justify-content-center">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-12 p-3 bg-body-tertiary">
+            <h4 class="p-2 bg-body-tertiary ms-2">Active Rooms</h4>
+            
+            <div class="mt-2 m-2">
+
+                <table class="table table-bordered">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Name</th>
+                            <th>Capacity</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var r in Model)
+                        {
+                            <tr>
+                                <td>@r.RoomName</td>
+                                <td>@r.Capacity</td>
+                                <td>
+                                    <span class="badge bg-@(r.IsActive ? "success" : "danger")">
+                                        @(r.IsActive ? "Active" : "Inactive")
+                                    </span>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+            </div>
+        </div>
+    </div>
+</div>
+

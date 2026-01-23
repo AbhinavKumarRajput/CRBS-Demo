@@ -1,0 +1,91 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject UserManager<AppUser> userManager
+@inject SignInManager<AppUser> signInManager
+
+<ul class="navbar-nav ms-auto">
+
+@if (signInManager.IsSignedIn(User))
+{
+    <li class="nav-item dropdown">
+
+        <!-- Profile Icon -->
+        <a class="nav-link dropdown-toggle d-flex align-items-center justify-content-center
+           bg-primary text-white rounded-circle"
+           href="#"
+           role="button"
+           data-bs-toggle="dropdown"
+           aria-expanded="false"
+           style="width:40px;height:40px;">
+            👤
+        </a>
+
+        <!-- Dropdown Menu -->
+        <ul class="dropdown-menu dropdown-menu-end shadow">
+
+            @* Role based menu *@
+            @if (User.IsInRole("Admin"))
+            {
+                <li>
+                    <a class="dropdown-item"
+                       asp-controller="Admin"
+                       asp-action="Dashboard">Dashboard</a>
+                </li>
+                <li>
+                    <a class="dropdown-item"
+                       asp-controller="Admin"
+                       asp-action="Profile">Profile</a>
+                </li>
+            }
+            else if (User.IsInRole("Manager"))
+            {
+                <li>
+                    <a class="dropdown-item"
+                       asp-controller="Manager"
+                       asp-action="Dashboard">Dashboard</a>
+                </li>
+                <li>
+                    <a class="dropdown-item"
+                       asp-controller="Manager"
+                       asp-action="Profile">Profile</a>
+                </li>
+            }
+            else if (User.IsInRole("Employee"))
+            {
+                <li>
+                    <a class="dropdown-item"
+                       asp-controller="Employee"
+                       asp-action="Dashboard">Dashboard</a>
+                </li>
+                <li>
+                    <a class="dropdown-item"
+                       asp-controller="Employee"
+                       asp-action="Profile">Profile</a>
+                </li>
+            }
+
+            <li><hr class="dropdown-divider"></li>
+
+            <li>
+                <a class="dropdown-item text-danger"
+                   asp-controller="Account"
+                   asp-action="Logout">Logout</a>
+            </li>
+        </ul>
+    </li>
+}
+else
+{
+    <li class="nav-item">
+        <a class="nav-link"
+           asp-controller="Account"
+           asp-action="Index">Home</a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link"
+           asp-controller="Account"
+           asp-action="Login">Login</a>
+    </li>
+}
+
+</ul>

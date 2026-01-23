@@ -1,0 +1,67 @@
+﻿@model CRBS.Models.Booking
+@{
+    ViewData["Title"] = "Edit Booking";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 p-4 bg-body-tertiary rounded">
+            @if (ViewData["Error"] != null)
+            {
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>Error!</strong> @ViewData["Error"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            }
+
+            <h4 class="mb-3 text-center">Edit Booking</h4>
+
+            <form asp-action="Edit" method="post">
+                <input type="hidden" asp-for="BookingId" />
+
+                <!-- Room -->
+                <div class="mb-3">
+                    <label asp-for="RoomId" class="form-label"></label>
+                    <select asp-for="RoomId" class="form-select">
+                        <option value="">-- Select Room --</option>
+                        @foreach (var room in ViewBag.Rooms)
+                        {
+                            <option value="@room.RoomId">@room.RoomName</option>
+                        }
+                    </select>
+                    <span asp-validation-for="RoomId" class="text-danger"></span>
+                </div>
+
+                <!-- Date -->
+                <div class="mb-3">
+                    <label asp-for="BookingDate" class="form-label"></label>
+                    <input asp-for="BookingDate" type="date" class="form-control" />
+                    <span asp-validation-for="BookingDate" class="text-danger"></span>
+                </div>
+
+                <!-- From Time -->
+                <div class="mb-3">
+                    <label asp-for="FromTime" class="form-label"></label>
+                    <input asp-for="FromTime" type="time" class="form-control" />
+                    <span asp-validation-for="FromTime" class="text-danger"></span>
+                </div>
+
+                <!-- To Time -->
+                <div class="mb-3">
+                    <label asp-for="ToTime" class="form-label"></label>
+                    <input asp-for="ToTime" type="time" class="form-control" />
+                    <span asp-validation-for="ToTime" class="text-danger"></span>
+                </div>
+
+                <div class="text-end">
+                    <button type="submit" class="btn btn-primary">Update</button>
+                    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

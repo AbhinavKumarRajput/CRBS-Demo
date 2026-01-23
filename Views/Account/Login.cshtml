@@ -1,0 +1,35 @@
+﻿@model AppUser
+@{
+    ViewData["Title"] = "Login";
+}
+<div class="container">
+    @if (ViewData["Message"] != null)
+    {
+        <div>
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <strong>Message!</strong> @ViewData["Message"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        </div>
+    }
+
+    <div class="row d-flex justify-content-center">
+        <div class="col-lg-6 col-md-12 col-sm-12 col-12 p-3 bg-body-tertiary">
+            <h2>Login</h2>
+            <form asp-action="Login" asp-controller="Account" method="Post">
+                <div>
+                    <label class="form-label">Email Id</label>
+                    <input type="text" class="form-control" asp-for="Email" />
+                </div>
+                <div>
+                    <label class="form-label">Password</label>
+                    <input type="password" class="form-control" asp-for="PasswordHash" />
+                </div>
+                <div class="mt-2">
+                    <input type="submit" class="btn btn-success" value="Login" />
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>

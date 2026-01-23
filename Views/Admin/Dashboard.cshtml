@@ -1,0 +1,153 @@
+﻿@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    
+    <style>
+        body {
+            background-color: #f4f6f9;
+        }
+        .sidebar {
+            height: 100vh;
+            background: #1e293b;
+            color: #fff;
+        }
+        .sidebar a {
+            color: #cbd5e1;
+            text-decoration: none;
+            padding: 12px 20px;
+            display: block;
+        }
+        .sidebar a:hover {
+            background: #334155;
+            color: #fff;
+        }
+        .card-icon {
+            font-size: 2rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">CRBS</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                   
+                    <partial name="_LoginPartial" />
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <nav class="col-md-2 sidebar p-0">
+                <h4 class="text-center py-3 border-bottom">Admin Panel</h4>
+                <a href="#"></a>
+                <a asp-area="" asp-controller="Admin" asp-action="Dashboard"><i class="bi bi-speedometer2 mt-2"></i> Dashboard </a>
+                <a asp-area="" asp-controller="UserManagement" asp-action="Index"><i class="fa fa-users me-2"></i>User Management</a>
+                <a asp-area="" asp-controller="ConferenceRoom" asp-action="Index"><i class="fa fa-door-open me-2"></i>Room Managemen</a>
+                <a asp-area="" asp-controller="BookingApproval" asp-action="Index"><i class="fa fa-calendar-check me-2"></i>Booking Management</a>
+               
+                <a asp-area="" asp-controller="Admin" asp-action="Profile"><i class="fa fa-user me-2"></i>Profile</a>
+                <a asp-area="" asp-controller="Admin" asp-action="ChangePassword"><i class="fa fa-lock me-2"></i>Change Password</a>
+                <a asp-area="" asp-controller="Account" asp-action="Logout" class="nav-link text-danger"><i class="fa fa-right-from-bracket me-2"></i>Logout</a>
+            </nav>
+
+            <!-- Main Content -->
+            <main class="col-md-10 ms-sm-auto px-4 py-4">
+                <h2 class="mb-4">Dashboard</h2>
+
+                <div class="row g-4">
+                    <!-- Users -->
+                    <div class="col-md-4">
+                        <div class="card shadow-sm">
+                            <div class="card-body d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h5>Total Users</h5>
+                                    <h3>@ViewBag.UserCount</h3>
+                                </div>
+                                <i class="fa fa-users card-icon text-primary"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Rooms -->
+                    <div class="col-md-4">
+                        <div class="card shadow-sm">
+                            <div class="card-body d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h5>Total Rooms</h5>
+
+                                    <table>
+                                        <tr>
+                                            <td><h3>@ViewBag.RoomCount</h3></td>
+                                            <td class="text-success"><b>&nbsp;&nbsp;Active&nbsp;&nbsp;</b></td>
+                                            <td class="text-success"><b>@ViewBag.ActiveRoomCount</b></td>
+                                            <td class="text-danger"><b>&nbsp;&nbsp;&nbsp;&nbsp;Inactive</b></td>
+                                            <td class="text-danger"><b>&nbsp;&nbsp;@ViewBag.InactiveRoomCount</b></td>
+                                        </tr>
+                                    </table>
+                                </div>
+
+                                <i class="fa fa-door-open card-icon text-success"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bookings -->
+                    <div class="col-md-4">
+                        <div class="card shadow-sm">
+                            <div class="card-body d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h5>Total Bookings</h5>
+                                    <h3>@ViewBag.BookingCount</h3>
+                                </div>
+                                <i class="fa fa-calendar-check card-icon text-warning"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="card mt-5 shadow-sm">
+                    <div class="card-header">Quick Actions</div>
+                    <div class="card-body">
+                        <a asp-controller="Booking" asp-action="Create" class="btn btn-success me-2">
+                            <i class="fa fa-plus"></i> Book Room
+                        </a>
+                        <a asp-controller="Booking" asp-action="Index" style="background:#3f51b5;color:#fff;" class="btn me-2">
+                            <i class="fa fa-file-lines"></i> View My Bookings
+                        </a>
+                        <a asp-area="" class="btn btn-danger me-2" asp-controller="UserManagement" asp-action="Index"><i class="fa fa-users-cog me-2"></i>Manage Users</a>
+                        <a asp-area="" class="btn btn-warning me-2" asp-controller="ConferenceRoom" asp-action="Index"><i class="fa fa-door-open"></i> Manage Rooms</a>
+                        <a asp-controller="BookingApproval" asp-action="Index" class="btn btn-secondary text-white me-2">
+                            <i class="fa fa-clock me-2"></i>Pending Approvals
+                        </a>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

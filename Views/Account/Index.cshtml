@@ -1,0 +1,203 @@
+﻿@{
+    ViewData["Title"] = "Home";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CRBS | Home</title>
+
+    <!-- Bootstrap & Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* ===== Animated Background ===== */
+        .animated-bg {
+            min-height: 100vh;
+            background: linear-gradient(-45deg, #0d6efd, #0b5ed7, #6610f2, #0dcaf0);
+            background-size: 400% 400%;
+            animation: gradientBG 12s ease infinite;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        @@keyframes gradientBG {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* Floating Shapes */
+        .shapes span {
+            position: absolute;
+            display: block;
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.15);
+            animation: float 20s linear infinite;
+            bottom: -150px;
+            border-radius: 50%;
+        }
+
+            .shapes span:nth-child(1) {
+                left: 10%;
+                width: 80px;
+                height: 80px;
+                animation-duration: 25s;
+            }
+
+            .shapes span:nth-child(2) {
+                left: 25%;
+                animation-duration: 18s;
+                animation-delay: 2s;
+            }
+
+            .shapes span:nth-child(3) {
+                left: 40%;
+                width: 60px;
+                height: 60px;
+                animation-duration: 22s;
+            }
+
+            .shapes span:nth-child(4) {
+                left: 70%;
+                width: 100px;
+                height: 100px;
+                animation-duration: 30s;
+            }
+
+            .shapes span:nth-child(5) {
+                left: 85%;
+                animation-duration: 26s;
+            }
+
+        @@keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 0.4;
+            }
+
+            100% {
+                transform: translateY(-110vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* ===== Content ===== */
+        .content {
+            z-index: 2;
+            text-align: center;
+            max-width: 700px;
+        }
+
+            .content h1 {
+                font-size: 3rem;
+                font-weight: bold;
+                animation: slideDown 1s ease;
+            }
+
+            .content p {
+                font-size: 1.2rem;
+                margin-top: 15px;
+                animation: fadeIn 1.5s ease;
+            }
+
+            .content .btn {
+                margin-top: 25px;
+                padding: 12px 30px;
+                font-size: 1.1rem;
+                animation: popUp 2s ease;
+            }
+
+        @@keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-40px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @@keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @@keyframes popUp {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <section class="animated-bg">
+        <!-- Floating Shapes -->
+        <div class="shapes">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <!-- Content -->
+        <div class="content">
+            <h1>Conference Room Booking System</h1>
+            <p>Smart • Secure • Efficient Room Booking Management</p>
+
+            @* <a href="/Account/Login" class="btn btn-light">
+                <i class="fa fa-sign-in-alt me-2"></i> Get Started
+            </a> *@
+
+
+            <a class="btn btn-light" asp-area="" asp-controller="Account" asp-action="Login">Get Started</a>
+
+        </div>
+    </section>
+
+</body>
+</html>

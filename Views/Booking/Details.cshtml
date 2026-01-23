@@ -1,0 +1,56 @@
+﻿@model CRBS.Models.Booking
+@{
+    ViewData["Title"] = "Booking Details";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 p-4 bg-body-tertiary rounded">
+
+            <h4 class="mb-4 text-center">Booking Details</h4>
+
+            <table class="table table-bordered">
+                <tbody>
+                    <tr>
+                        <th style="width:30%">Room</th>
+                        <td>@Model.Room?.RoomName</td>
+                    </tr>
+                    <tr>
+                        <th>Date</th>
+                        <td>@Model.BookingDate.ToString("dd-MM-yyyy")</td>
+                    </tr>
+                    <tr>
+                        <th>From Time</th>
+                        <td>@Model.FromTime.ToString("hh:mm tt")</td>
+                    </tr>
+                    <tr>
+                        <th>To Time</th>
+                        <td>@Model.ToTime.ToString("hh:mm tt")</td>
+                    </tr>
+                    <tr>
+                        <th>Status</th>
+                        <td>
+                            <span class="badge bg-warning text-dark">
+                                @Model.Status
+                            </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Booked By</th>
+                        <td>@Model.User?.Name</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="text-end mt-3">
+                <a asp-action="Edit" asp-route-id="@Model.BookingId" class="btn btn-primary">
+                    Edit
+                </a>
+                <a asp-action="Index" class="btn btn-secondary">
+                    Back
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>

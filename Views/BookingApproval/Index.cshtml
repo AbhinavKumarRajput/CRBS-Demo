@@ -1,0 +1,130 @@
+﻿@model IEnumerable<Booking>
+
+@{
+    ViewData["Title"] = "Pending Approvals";
+    int count = 1;
+}
+
+
+
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-12 bg-body-tertiary p-3 rounded">
+            @if (TempData["Success"] != null)
+            {
+                <div class="alert alert-success alert-dismissible fade show">
+                    <strong>Success!</strong> @TempData["Success"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            }
+            else if (TempData["Error"] != null)
+            {
+                <div class="alert alert-danger alert-dismissible fade show">
+                    <strong>Error!</strong> @TempData["Error"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            }
+
+            <h4 class="mb-3">Pending Approvals</h4>
+
+            
+            <table class="table table-bordered table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th>#</th>
+                        <th>User</th>
+                        <th>Room</th>
+                        <th>Date</th>
+                        <th>From Time</th>
+                        <th>To Time</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var b in Model)
+                    {
+                        <tr>
+                            <td>@count</td>
+                            <td>@b.User?.Name</td>
+                            <td>@b.Room?.RoomName</td>
+                            <td>@b.BookingDate.ToString("dd-MM-yyyy")</td>
+                            <td>@b.FromTime.ToString("hh:mm tt")</td>
+                            <td>@b.ToTime.ToString("hh:mm tt")</td>
+                            <td>
+                                <span class="badge bg-warning text-dark">
+                                    @b.Status
+                                </span>
+                            </td>
+                            <td>
+                                <a asp-action="Approve" asp-route-id="@b.BookingId"
+                                   class="btn btn-success btn-sm text-white">
+                                    Approve
+                                </a>
+
+                                <!-- Reject Button -->
+                                <button type="button"
+                                        class="btn btn-danger btn-sm text-white"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#rejectModal"
+                                        data-id="@b.BookingId">
+                                    Reject
+                                </button>
+                            </td>
+                        </tr>
+                        count++;
+                    }
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="rejectModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title">Reject Booking</h5>
+                <button type="button"
+                        class="btn-close btn-close-white"
+                        data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                Are you sure you want to Reject this booking?
+            </div>
+
+            <div class="modal-footer">
+                <button type="button"
+                        class="btn btn-secondary"
+                        data-bs-dismiss="modal">
+                    No
+                </button>
+
+                <a id="confirmRejectBtn"
+                   class="btn btn-danger">
+                    Yes, Reject
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        var cancelModal = document.getElementById('rejectModal');
+
+        cancelModal.addEventListener('show.bs.modal', function (event) {
+            var button = event.relatedTarget;
+            var bookingId = button.getAttribute('data-id');
+
+            var confirmBtn = document.getElementById('confirmRejectBtn');
+            confirmBtn.href = '/BookingApproval/Reject/' + bookingId;
+        });
+    </script>
+}

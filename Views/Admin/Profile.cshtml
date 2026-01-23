@@ -1,0 +1,46 @@
+﻿@model CRBS.ViewModels.ProfileViewModel
+
+@{
+    ViewData["Title"] = "Profile";
+}
+
+
+
+<div class="container">
+
+    <div class="row d-flex justify-content-center">
+        <div class="col-lg-8 col-md-12 col-sm-12 col-12 p-3 bg-body-tertiary">
+            @if (TempData["Success"] != null)
+            {
+
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>Message!</strong> @TempData["Success"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
+            <h4 class="p-2 bg-body-tertiary ms-2">User Profile</h4>
+
+           
+         
+            <div class="mt-2 m-2">
+
+                <div class="p-2">
+                    <b>Name: </b> @Model.Name
+                </div>
+                <div class="p-2">
+                    <b>Role: </b> @Model.Role
+                </div>
+                <div class="p-2">
+                    <b>Email: </b> @Model.Email
+                </div>
+                <div class="mt-2">
+                    <a type="button" class="btn btn-warning text-white" value="ChangePassword" asp-action="ChangePassword"> Change Password</a>
+                    <a type="button" class="btn btn-primary text-white" value="Edit" asp-action="Edit"> Edit</a>
+                    <a type="button" class="btn btn-dark text-white" value="Back" asp-action="Dashboard"> Back</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+

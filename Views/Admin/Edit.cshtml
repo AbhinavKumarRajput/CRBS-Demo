@@ -1,0 +1,35 @@
+﻿@{
+    ViewData["Title"] = "Edit User";
+}
+@if (ViewData["Message"] != null)
+{
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>Error!</strong> @ViewData["Message"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<div class="container">
+
+    <div class="row d-flex justify-content-center">
+        <div class="col-lg-8 col-md-12 col-sm-12 col-12 p-3 bg-body-tertiary">
+            <center> <h4 class="p-2 bg-body-tertiary">Edit User</h4> </center>
+            <form method="post" class="mt-5 m-2">
+                <label name="Name" class="form-label">Name</label>
+                <input type="text" class="form-control" name="Name" value="@ViewBag.Name" />
+
+                <div class="d-flex justify-content-end">
+                    <input type="submit" class="btn btn-success text-white mt-2" value="Update" />
+
+                    <a asp-action="Dashboard"
+                       class="btn btn-dark text-white mt-2 ms-2">
+                        Back
+                    </a>
+                </div>
+
+
+            </form>
+        </div>
+    </div>
+</div>
+

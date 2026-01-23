@@ -1,0 +1,46 @@
+﻿@model ConferenceRoom
+@{
+    ViewData["Title"] = "Edit Room";
+}
+@if (ViewData["Message"] != null)
+{
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>Error!</strong> @ViewData["Message"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<div class="container">
+
+    <div class="row d-flex justify-content-center">
+        <div class="col-lg-8 col-md-12 col-sm-12 col-12 p-3 bg-body-tertiary">
+            <center> <h4 class="p-2 bg-body-tertiary">Edit Room</h4> </center>
+            <form method="post" class="mt-5 m-2">
+                <div class="mb-3">
+                    <label>Room ID</label>
+                    <input asp-for="RoomId" class="form-control" readonly/>
+                </div>
+
+                <div class="mb-3">
+                    <label>Room Name</label>
+                    <input asp-for="RoomName" class="form-control" />
+                    <span class="text-danger" asp-validation-for="RoomName"></span> <br />
+                </div>
+
+                <div class="mb-3">
+                    <label>Capacity</label>
+                    <input asp-for="Capacity" class="form-control" />
+                    <span class="text-danger" asp-validation-for="Capacity"></span> <br />
+                </div>
+
+                <div class="form-check mb-3">
+                    <input asp-for="IsActive" class="form-check-input" />
+                    <label class="form-check-label">Active</label>
+                </div>
+
+                <button class="btn btn-success">Update</button>
+            </form>
+        </div>
+    </div>
+</div>
+

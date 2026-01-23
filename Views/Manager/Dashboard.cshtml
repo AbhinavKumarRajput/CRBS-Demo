@@ -1,0 +1,173 @@
+﻿@{
+    ViewData["Title"] = "Manager Dashboard";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manager Dashboard</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #f4f6f9;
+        }
+
+        .sidebar {
+            height: 100vh;
+            background: #1e293b;
+            color: #fff;
+        }
+
+            .sidebar a {
+                color: #cbd5e1;
+                text-decoration: none;
+                padding: 12px 20px;
+                display: block;
+            }
+
+                .sidebar a:hover {
+                    background: #334155;
+                    color: #fff;
+                }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-controller="Home" asp-action="Index">CRBS</a>
+
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                   
+                    <partial name="_LoginPartial" />
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container-fluid">
+        <div class="row">
+
+            <!-- Sidebar -->
+            <div class="col-md-2 sidebar p-0">
+                <div class="p-3 border-bottom">
+                    <h4 class="text-white">Manager Panel</h4>
+                </div>
+
+                <ul class="nav flex-column p-2">
+                    <li class="nav-item">
+                        <a class="nav-link" asp-action="Dashboard">
+                            <i class="bi bi-speedometer2 me-2"></i> Dashboard
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Booking" asp-action="Index">
+                            <i class="fa fa-calendar-check me-2"></i> My Bookings
+                        </a>
+                    </li>
+
+                   
+
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="ConferenceRoom" asp-action="ActiveRooms">
+                            <i class="bi bi-door-open me-2"></i> Active Rooms
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Manager" asp-action="Profile">
+                            <i class="fa fa-user me-2"></i> Profile
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" asp-controller="Manager" asp-action="ChangePassword">
+                            <i class="fa fa-lock me-2"></i> Change Password
+                        </a>
+                    </li>
+
+                    <li class="nav-item mt-3">
+                        <a class="nav-link text-danger" asp-controller="Account" asp-action="Logout">
+                            <i class="fa fa-right-from-bracket me-2"></i> Logout
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Main Content -->
+            <div class="col-md-10 p-4 bg-light">
+                <h2 class="mb-4">Dashboard</h2>
+
+                <!-- Stats Cards -->
+                <div class="row g-4">
+                    <div class="col-md-3">
+                        <div class="card shadow-sm">
+                            <div class="card-body">
+                                <h6 class="text-muted">Total Team Bookings</h6>
+                                <h3>@ViewBag.TotalTeamBookings</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="card shadow-sm">
+                            <div class="card-body">
+                                <h6 class="text-muted">Upcoming Meetings</h6>
+                                <h3 class="text-success">@ViewBag.UpcomingMeetings</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="card shadow-sm">
+                            <div class="card-body">
+                                <h6 class="text-muted">Active Rooms</h6>
+                                <h3 class="text-primary">@ViewBag.ActiveRooms</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="card shadow-sm">
+                            <div class="card-body">
+                                <h6 class="text-muted">Employees</h6>
+                                <h3 class="text-warning">@ViewBag.EmployeeCount</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="card mt-4 shadow-sm">
+                    <div class="card-header">Quick Actions</div>
+                    <div class="card-body">
+                        <a asp-controller="Booking" asp-action="Create" class="btn btn-success me-2">
+                            <i class="fa fa-plus"></i> Book Room
+                        </a>
+
+                        <a asp-controller="Booking" asp-action="Index" class="btn btn-primary me-2">
+                            <i class="fa fa-file-lines"></i> View My Bookings
+                        </a>
+                        <a asp-controller="ConferenceRoom" asp-action="ActiveRooms" class="btn btn-warning text-dark">
+                            <i class="bi bi-door-open me-2"></i> View Rooms
+                        </a>
+                        <a asp-controller="BookingApproval" asp-action="Index" class="btn btn-secondary text-white me-2">
+                            <i class="fa fa-clock me-2"></i>Pending Approvals
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

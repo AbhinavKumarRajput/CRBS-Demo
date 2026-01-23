@@ -1,0 +1,52 @@
+﻿@model ConferenceRoom
+@{
+    ViewData["Title"] = "Room Details";
+}
+@if (ViewData["Message"] != null)
+{
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>Error!</strong> @ViewData["Message"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<div class="container">
+
+    <div class="row d-flex justify-content-center">
+        <div class="col-lg-8 col-md-12 col-sm-12 col-12 p-3 bg-body-tertiary">
+            <center> <h4 class="p-2 bg-body-tertiary">Room Deatils</h4> </center>
+         
+            <div class="mt-2 m-2">
+
+
+                <div class="p-2">
+                    <b>Room Id: </b>&nbsp;&nbsp; @Model.RoomId
+                </div>
+                <div class="p-2">
+                    <b>Room Name: </b>&nbsp;&nbsp; @Model.RoomName
+                </div>
+                <div class="p-2">
+                    <b>Capacity: </b>&nbsp;&nbsp; @Model.Capacity
+                </div>
+                <div class="p-2">
+                    <b>Status: </b> &nbsp;&nbsp; @if (Model.IsActive)
+                    {
+                        <b class="text-success">Active</b>
+                    }
+                                        else
+                    {
+                        <b class="text-danger">Inactive</b>
+                    }
+
+                </div>
+                <div class="mt-2">
+                    
+                    <a type="button" class="btn btn-primary text-white" value="Edit" asp-action="Edit" asp-route-id="@Model.RoomId"> Edit</a>
+                    <a type="button" class="btn btn-dark text-white" value="Back" asp-action="Index"> Back</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
