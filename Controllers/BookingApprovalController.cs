@@ -61,9 +61,8 @@ namespace CRBS.Controllers
             {
                 booking.Status = "Approved";
                 context.SaveChanges();
-
+                /*
                 string subject = "Conference Room Booking Approved";
-
                 string message = $@"
                     Dear {booking.User.Name}, <br/><br/>
 
@@ -79,7 +78,7 @@ namespace CRBS.Controllers
                     ";
 
                 EmailHelper.Send(booking.User.Email, subject, message); 
-                
+                */
                 TempData["Success"] = "Booking approved successfully.";
             }
 
@@ -115,7 +114,7 @@ namespace CRBS.Controllers
             {
                 booking.Status = "Rejected";
                 context.SaveChanges();
-                
+                /*
                 string subject = "Conference Room Booking Rejected";
                 string message = $@"
                     Dear {booking.User.Name}, <br/><br/>
@@ -129,7 +128,7 @@ namespace CRBS.Controllers
                     Management Team
                     ";
                 EmailHelper.Send(booking.User.Email, subject, message);
-                
+                */
                 TempData["Success"] = "Booking rejected successfully.";
             }
             return RedirectToAction("Index");
