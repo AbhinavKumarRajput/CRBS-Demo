@@ -10,25 +10,25 @@ namespace CRBS.Helper
         {
             try
             {
-                var fromEmail = Environment.GetEnvironmentVariable("SMTP_EMAIL");
-                var password  = Environment.GetEnvironmentVariable("SMTP_PASSWORD");
-                var host      = Environment.GetEnvironmentVariable("SMTP_HOST");
-                var portStr   = Environment.GetEnvironmentVariable("SMTP_PORT");
+                var fromEmail = Environment.GetEnvironmentVariable("BREVO_EMAIL");
+                var password  = Environment.GetEnvironmentVariable("BREVO_PASS");
+                var host      = Environment.GetEnvironmentVariable("BREVO_HOST");
+                var portStr   = Environment.GetEnvironmentVariable("BREVO_PORT");
 
                 if (string.IsNullOrWhiteSpace(fromEmail) ||
                     string.IsNullOrWhiteSpace(password) ||
                     string.IsNullOrWhiteSpace(host) ||
                     string.IsNullOrWhiteSpace(portStr))
                 {
-                    Console.WriteLine("SMTP ENV VARIABLES NOT FOUND");
+                    Console.WriteLine("BREVO SMTP ENV VARIABLES NOT FOUND");
                     return false;
                 }
 
                 int port = int.Parse(portStr);
 
-                MailMessage message = new MailMessage
+                using MailMessage message = new MailMessage
                 {
-                    From = new MailAddress(fromEmail),
+                    From = new MailAddress(fromEmail, "CRBS Team"),
                     Subject = subject,
                     Body = msg,
                     IsBodyHtml = true
@@ -36,7 +36,7 @@ namespace CRBS.Helper
 
                 message.To.Add(to);
 
-                using var smtpClient = new SmtpClient(host, port)
+                using SmtpClient smtpClient = new SmtpClient(host, port)
                 {
                     EnableSsl = true,
                     UseDefaultCredentials = false,
@@ -49,7 +49,7 @@ namespace CRBS.Helper
             }
             catch (Exception ex)
             {
-                Console.WriteLine("SMTP ERROR: " + ex.Message);
+                Console.WriteLine("BREVO SMTP ERROR: " + ex.Message);
                 return false;
             }
         }
