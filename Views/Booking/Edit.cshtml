@@ -21,8 +21,8 @@
 
                 <!-- Room -->
                 <div class="mb-3">
-                    <label asp-for="RoomName" class="form-label"></label>
-                    <select asp-for="RoomName" class="form-select">
+                    <label asp-for="" class="form-label">Room Name</label>
+                    <select asp-for="RoomId" class="form-select">
                         <option value="">-- Select Room --</option>
                         @foreach (var room in ViewBag.Rooms)
                         {
